@@ -1,0 +1,394 @@
+/**
+ * BriefKit Official Brand Identity & Design System CSS
+ * Version: 1.0
+ * 
+ * Design Philosophy:
+ * BriefKit distills complexity into clarity. Our visual language is built on
+ * precision, purpose, and the transformative moment when a brief becomes a
+ * breakthrough. The brand bridges the gap between structured thinking and
+ * creative execution — every element serves double duty.
+ *
+ * Color Strategy:
+ * Sky blue represents clarity and communication (the "brief").
+ * Indigo/violet represents intelligence and transformation (the "kit").
+ * Amber represents the spark — the moment of insight that bridges brief to kit.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ── Brand Core Colors ─────────────────────────────────────── */
+
+  /* Primary: Sky Blue — Clarity, communication, openness */
+  --brand-primary: #0EA5E9;
+  --brand-primary-hover: #0284C7;
+  --brand-primary-light: #F0F9FF;
+  --brand-primary-50: #F0F9FF;
+  --brand-primary-100: #E0F2FE;
+  --brand-primary-200: #BAE6FD;
+  --brand-primary-300: #7DD3FC;
+  --brand-primary-400: #38BDF8;
+  --brand-primary-500: #0EA5E9;
+  --brand-primary-600: #0284C7;
+  --brand-primary-700: #0369A1;
+  --brand-primary-800: #075985;
+  --brand-primary-900: #0C4A6E;
+
+  /* Secondary: Indigo — Intelligence, transformation, depth */
+  --brand-secondary: #6366F1;
+  --brand-secondary-hover: #4F46E5;
+  --brand-secondary-light: #EEF2FF;
+  --brand-secondary-50: #EEF2FF;
+  --brand-secondary-100: #E0E7FF;
+  --brand-secondary-200: #C7D2FE;
+  --brand-secondary-300: #A5B4FC;
+  --brand-secondary-400: #818CF8;
+  --brand-secondary-500: #6366F1;
+  --brand-secondary-600: #4F46E5;
+  --brand-secondary-700: #4338CA;
+  --brand-secondary-800: #3730A3;
+  --brand-secondary-900: #312E81;
+
+  /* Accent: Purple — Creativity, premium quality, magic */
+  --brand-accent: #A855F7;
+  --brand-accent-hover: #9333EA;
+  --brand-accent-light: #FAF5FF;
+  --brand-accent-50: #FAF5FF;
+  --brand-accent-200: #E9D5FF;
+  --brand-accent-300: #D8B4FE;
+  --brand-accent-400: #C084FC;
+  --brand-accent-500: #A855F7;
+  --brand-accent-600: #9333EA;
+
+  /* Spark: Amber — Insight, energy, the "aha" moment */
+  --brand-spark: #F59E0B;
+  --brand-spark-hover: #D97706;
+  --brand-spark-light: #FFFBEB;
+  --brand-spark-400: #FBBF24;
+  --brand-spark-500: #F59E0B;
+
+  /* ── Brand Neutrals ───────────────────────────────────────── */
+
+  /* Dark Theme (Primary — SaaS Dashboard) */
+  --dark-bg: #0F172A;             /* Deep Navy */
+  --dark-bg-elevated: #1E293B;    /* Elevated Surface */
+  --dark-bg-input: #334155;       /* Input Fields */
+  --dark-border: #1E293B;
+  --dark-border-light: #334155;
+  --dark-text-main: #F8FAFC;      /* Ice White */
+  --dark-text-muted: #94A3B8;     /* Muted Slate */
+  --dark-text-dim: #64748B;       /* Dim Slate */
+
+  /* Light Theme (Landing & Marketing) */
+  --light-bg: #F8FAFC;            /* Soft Cloud */
+  --light-bg-card: #FFFFFF;       /* Pure White */
+  --light-bg-input: #F1F5F9;      /* Light Slate */
+  --light-border: #E2E8F0;
+  --light-border-dark: #CBD5E1;
+  --light-text-main: #0F172A;     /* Deep Navy */
+  --light-text-muted: #64748B;    /* Muted Slate */
+  --light-text-dim: #94A3B8;      /* Dim Slate */
+
+  /* ── UI Status Colors ─────────────────────────────────────── */
+  --color-success: #10B981;       /* Emerald */
+  --color-success-light: #ECFDF5;
+  --color-warning: #F59E0B;       /* Amber */
+  --color-warning-light: #FFFBEB;
+  --color-danger: #EF4444;        /* Red */
+  --color-danger-light: #FEF2F2;
+  --color-info: #0EA5E9;          /* Sky Blue */
+  --color-info-light: #F0F9FF;
+
+  /* ── Typography ───────────────────────────────────────────── */
+  --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-family-display: 'Plus Jakarta Sans', var(--font-family-sans);
+  --font-family-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Font Weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* Font Sizes — Modular Scale (1.25 ratio) */
+  --text-xs: 0.75rem;     /* 12px */
+  --text-sm: 0.875rem;    /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg: 1.125rem;    /* 18px */
+  --text-xl: 1.25rem;     /* 20px */
+  --text-2xl: 1.5rem;     /* 24px */
+  --text-3xl: 1.875rem;   /* 30px */
+  --text-4xl: 2.25rem;    /* 36px */
+  --text-5xl: 3rem;       /* 48px */
+  --text-6xl: 3.75rem;    /* 60px */
+  --text-7xl: 4.5rem;     /* 72px */
+
+  /* Line Heights */
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
+
+  /* Letter Spacing */
+  --tracking-tighter: -0.05em;
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
+
+  /* ── Spacing Scale ────────────────────────────────────────── */
+  --spacing-0: 0;
+  --spacing-0_5: 0.125rem;  /* 2px */
+  --spacing-1: 0.25rem;     /* 4px */
+  --spacing-1_5: 0.375rem;  /* 6px */
+  --spacing-2: 0.5rem;      /* 8px */
+  --spacing-3: 0.75rem;     /* 12px */
+  --spacing-4: 1rem;        /* 16px */
+  --spacing-5: 1.25rem;     /* 20px */
+  --spacing-6: 1.5rem;      /* 24px */
+  --spacing-8: 2rem;        /* 32px */
+  --spacing-10: 2.5rem;     /* 40px */
+  --spacing-12: 3rem;       /* 48px */
+  --spacing-16: 4rem;       /* 64px */
+  --spacing-20: 5rem;       /* 80px */
+  --spacing-24: 6rem;       /* 96px */
+
+  /* ── Border Radii ─────────────────────────────────────────── */
+  --radius-none: 0;
+  --radius-sm: 0.375rem;   /* 6px */
+  --radius-md: 0.5rem;     /* 8px */
+  --radius-lg: 0.75rem;    /* 12px */
+  --radius-xl: 1rem;       /* 16px */
+  --radius-2xl: 1.5rem;    /* 24px */
+  --radius-full: 9999px;
+
+  /* ── Shadows ──────────────────────────────────────────────── */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+
+  /* Glow shadows */
+  --shadow-glow-primary: 0 0 20px 0 rgba(14, 165, 233, 0.35);
+  --shadow-glow-secondary: 0 0 20px 0 rgba(99, 102, 241, 0.35);
+  --shadow-glow-accent: 0 0 20px 0 rgba(168, 85, 247, 0.35);
+  --shadow-glow-spark: 0 0 20px 0 rgba(245, 158, 11, 0.35);
+
+  /* ── Transitions ──────────────────────────────────────────── */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ── Z-Index Scale ────────────────────────────────────────── */
+  --z-base: 0;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-overlay: 30;
+  --z-modal: 40;
+  --z-toast: 50;
+}
+
+/* ── Typography Utility Classes ──────────────────────────────── */
+
+.brand-sans { font-family: var(--font-family-sans); }
+.brand-display { font-family: var(--font-family-display); }
+.brand-mono { font-family: var(--font-family-mono); }
+
+/* ── Gradient Utility Classes ────────────────────────────────── */
+
+/* Primary gradient: Sky → Indigo */
+.grad-primary {
+  background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
+}
+
+/* Accent gradient: Indigo → Purple */
+.grad-accent {
+  background: linear-gradient(135deg, var(--brand-secondary) 0%, var(--brand-accent) 100%);
+}
+
+/* Full spectrum gradient: Sky → Indigo → Purple */
+.grad-spectrum {
+  background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 50%, var(--brand-accent) 100%);
+}
+
+/* Text gradient: Sky → Indigo → Purple */
+.grad-text {
+  background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 50%, var(--brand-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Spark gradient: Amber → Orange */
+.grad-spark {
+  background: linear-gradient(135deg, var(--brand-spark) 0%, #F97316 100%);
+}
+
+/* ── Button System ───────────────────────────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3) var(--spacing-6);
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-sm);
+  line-height: var(--leading-none);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px 0 rgba(14, 165, 233, 0.3);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px 0 rgba(14, 165, 233, 0.45);
+  filter: brightness(1.05);
+}
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px 0 rgba(14, 165, 233, 0.3);
+}
+
+.btn-secondary {
+  background: var(--light-bg-card);
+  color: var(--light-text-main);
+  border-color: var(--light-border-dark);
+}
+.btn-secondary:hover {
+  background: var(--light-bg-input);
+  transform: translateY(-2px);
+  border-color: var(--brand-primary);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--brand-primary);
+  border-color: transparent;
+}
+.btn-ghost:hover {
+  background: var(--brand-primary-light);
+}
+
+.btn-dark {
+  background: var(--dark-bg-elevated);
+  color: var(--dark-text-main);
+  border-color: var(--dark-border-light);
+}
+.btn-dark:hover {
+  background: var(--dark-bg);
+  border-color: var(--brand-primary);
+  transform: translateY(-2px);
+}
+
+/* ── Card System ─────────────────────────────────────────────── */
+
+.brand-card {
+  background-color: var(--light-bg-card);
+  border: 1px solid var(--light-border);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-6);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+}
+.brand-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--brand-primary-200);
+}
+
+.brand-card-dark {
+  background-color: var(--dark-bg-elevated);
+  border: 1px solid var(--dark-border);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-6);
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-normal);
+}
+.brand-card-dark:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl), var(--shadow-glow-secondary);
+  border-color: var(--brand-secondary);
+}
+
+/* ── Badge/Tag System ────────────────────────────────────────── */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: var(--spacing-1) var(--spacing-3);
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-xs);
+  border-radius: var(--radius-full);
+  letter-spacing: var(--tracking-wide);
+}
+
+.badge-primary {
+  background: var(--brand-primary-light);
+  color: var(--brand-primary-700);
+}
+
+.badge-spark {
+  background: var(--brand-spark-light);
+  color: #92400E;
+}
+
+.badge-gradient {
+  background: linear-gradient(135deg, var(--brand-primary-100) 0%, var(--brand-secondary-100) 100%);
+  color: var(--brand-secondary-700);
+}
+
+/* ── Input System ────────────────────────────────────────────── */
+
+.brand-input {
+  width: 100%;
+  padding: var(--spacing-3) var(--spacing-4);
+  font-family: var(--font-family-sans);
+  font-size: var(--text-base);
+  color: var(--light-text-main);
+  background: var(--light-bg-card);
+  border: 1px solid var(--light-border-dark);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-normal);
+  outline: none;
+}
+.brand-input:focus {
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 3px var(--brand-primary-100);
+}
+.brand-input::placeholder {
+  color: var(--light-text-dim);
+}
+
+.brand-input-dark {
+  color: var(--dark-text-main);
+  background: var(--dark-bg-input);
+  border-color: var(--dark-border-light);
+}
+.brand-input-dark:focus {
+  border-color: var(--brand-primary-400);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+}
+.brand-input-dark::placeholder {
+  color: var(--dark-text-dim);
+}

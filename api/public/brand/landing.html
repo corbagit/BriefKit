@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BriefKit — Turn Your Brief Into a Breakthrough</title>
+
+  <!-- Open Graph / SEO Meta Tags -->
+  <meta property="og:title" content="BriefKit — Turn Your Brief Into a Breakthrough">
+  <meta property="og:description" content="The smart toolkit that transforms briefs into ready-to-ship content, strategy, and execution plans.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BriefKit — Turn Your Brief Into a Breakthrough">
+  <meta name="twitter:description" content="The smart toolkit that transforms briefs into ready-to-ship content, strategy, and execution plans.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Custom Brand Stylesheet -->
+  <link rel="stylesheet" href="./brand.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          },
+          colors: {
+            brand: {
+              50: '#F0F9FF',
+              100: '#E0F2FE',
+              200: '#BAE6FD',
+              300: '#7DD3FC',
+              400: '#38BDF8',
+              500: '#0EA5E9',
+              600: '#0284C7',
+              700: '#0369A1',
+            },
+            indigo: {
+              50: '#EEF2FF',
+              100: '#E0E7FF',
+              400: '#818CF8',
+              500: '#6366F1',
+              600: '#4F46E5',
+              700: '#4338CA',
+            },
+            purple: {
+              400: '#C084FC',
+              500: '#A855F7',
+              600: '#9333EA',
+            },
+            spark: {
+              50: '#FFFBEB',
+              400: '#FBBF24',
+              500: '#F59E0B',
+            },
+            navy: {
+              800: '#1E293B',
+              900: '#0F172A',
+              950: '#0A1120',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Glass effect for nav and overlays */
+    .glass {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .glass-light {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    /* Grid background pattern */
+    .grid-bg {
+      background-image: radial-gradient(circle, #1e293b 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .grid-bg-light {
+      background-image: radial-gradient(circle, #e2e8f0 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    /* Glow hover effect */
+    .glow-hover:hover {
+      box-shadow: 0 0 30px 0 rgba(14, 165, 233, 0.3);
+    }
+    .glow-accent:hover {
+      box-shadow: 0 0 30px 0 rgba(99, 102, 241, 0.3);
+    }
+
+    /* Spark pulse animation */
+    @keyframes spark-pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.8; }
+    }
+    .spark-pulse {
+      animation: spark-pulse 2s ease-in-out infinite;
+    }
+
+    /* Kit assembly animation */
+    @keyframes kit-assemble {
+      0% { opacity: 0; transform: translateY(12px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .kit-piece-1 { animation: kit-assemble 0.4s ease-out 0.1s both; }
+    .kit-piece-2 { animation: kit-assemble 0.4s ease-out 0.2s both; }
+    .kit-piece-3 { animation: kit-assemble 0.4s ease-out 0.3s both; }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #0EA5E9 0%, #6366F1 50%, #A855F7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Smooth scroll */
+    html { scroll-behavior: smooth; }
+
+    /* Feature card hover lift */
+    .feature-card {
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .feature-card:hover {
+      transform: translateY(-6px);
+    }
+
+    /* Demo widget styles */
+    .demo-brief-input {
+      transition: all 0.3s ease;
+    }
+    .demo-brief-input:focus {
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0F172A; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+  </style>
+</head>
+
+<body class="bg-navy-900 text-slate-50 font-sans antialiased selection:bg-sky-500 selection:text-white">
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- NAVIGATION -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <nav class="sticky top-0 z-50 w-full border-b border-slate-800/60 glass">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="./logo-white.svg" alt="BriefKit Logo" class="h-9 w-auto">
+      </div>
+      <div class="hidden md:flex items-center gap-8 font-display font-semibold text-sm">
+        <a href="#features" class="text-slate-400 hover:text-white transition-colors">Features</a>
+        <a href="#demo" class="text-slate-400 hover:text-white transition-colors">Live Demo</a>
+        <a href="#how" class="text-slate-400 hover:text-white transition-colors">How It Works</a>
+        <a href="#pricing" class="text-slate-400 hover:text-white transition-colors">Pricing</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="#demo" class="text-sm font-display font-semibold text-slate-300 hover:text-white transition-colors hidden sm:block">Sign In</a>
+        <a href="#demo" class="btn btn-primary !py-2.5 !px-5 text-sm !rounded-xl">Get Started Free</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- HERO SECTION -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <header class="relative pt-24 pb-20 px-4 sm:px-6 lg:px-8 grid-bg overflow-hidden">
+    <!-- Ambient glow backdrops -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-sky-500/8 rounded-full blur-3xl -z-10"></div>
+    <div class="absolute top-1/3 left-1/4 w-[300px] h-[300px] bg-indigo-500/8 rounded-full blur-3xl -z-10"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-[200px] h-[200px] bg-purple-500/6 rounded-full blur-3xl -z-10"></div>
+
+    <div class="max-w-5xl mx-auto text-center space-y-8 relative z-10">
+      <!-- Spark badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-navy-800/80 border border-slate-700/50 text-slate-300 font-display font-semibold text-xs tracking-widest uppercase">
+        <span class="flex h-2 w-2 relative">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-spark-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-spark-500"></span>
+        </span>
+        Now in Public Beta — Free to Start
+      </div>
+
+      <!-- Main headline -->
+      <h1 class="text-5xl sm:text-6xl md:text-7xl font-display font-extrabold tracking-tight leading-[1.05] max-w-4xl mx-auto">
+        Turn your brief into<br>
+        <span class="gradient-text">a breakthrough.</span>
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+        BriefKit transforms your creative briefs into ready-to-ship content, strategy, and execution plans. Drop in a brief. Get the complete kit.
+      </p>
+
+      <!-- CTA buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+        <a href="#demo" class="btn btn-primary w-full sm:w-auto text-base !py-3.5 !px-8 shadow-xl shadow-sky-500/20">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          Build Your First Kit
+        </a>
+        <a href="#how" class="btn btn-secondary !bg-navy-800 !text-white !border-slate-700 hover:!bg-navy-900 hover:!border-sky-500/50 w-full sm:w-auto text-base !py-3.5 !px-8">
+          See How It Works
+        </a>
+      </div>
+
+      <!-- Social proof line -->
+      <div class="pt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-slate-500">
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+          <span>No credit card required</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+          <span>Set up in under 2 minutes</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+          <span>Works with any brief format</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- INTERACTIVE DEMO WIDGET -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section id="demo" class="relative py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/50">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-12">
+        <p class="text-sm font-display font-bold tracking-widest uppercase text-sky-400 mb-3">Live Demo</p>
+        <h2 class="text-3xl sm:text-4xl font-display font-bold tracking-tight">Watch a brief become a kit</h2>
+        <p class="text-slate-400 mt-3 max-w-xl mx-auto">Type a brief below and see BriefKit assemble the right tools instantly.</p>
+      </div>
+
+      <!-- Demo Widget -->
+      <div class="bg-navy-800/50 rounded-2xl border border-slate-700/50 p-6 sm:p-8 shadow-2xl backdrop-blur-sm">
+        <!-- Brief input area -->
+        <div class="mb-6">
+          <label class="block text-sm font-display font-semibold text-slate-300 mb-2">
+            <span class="inline-flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              Your Brief
+            </span>
+          </label>
+          <textarea id="briefInput" rows="3" placeholder="e.g., Launch a wellness app targeting busy professionals..." class="w-full px-4 py-3 bg-navy-900 border border-slate-600 rounded-xl text-slate-200 placeholder-slate-500 font-sans text-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 demo-brief-input resize-none"></textarea>
+        </div>
+
+        <!-- Preset brief buttons -->
+        <div class="flex flex-wrap gap-2 mb-8">
+          <button onclick="setBrief('Launch a premium coffee subscription box for remote workers. Emphasis on single-origin beans and ritual experience.')" class="px-3 py-1.5 bg-navy-900 border border-slate-700 rounded-lg text-xs font-display font-semibold text-slate-400 hover:text-white hover:border-sky-500/50 transition-all">
+            ☕ Coffee Subscription
+          </button>
+          <button onclick="setBrief('Introduce a B2B project management tool for creative agencies. Key differentiator: visual timeline + AI task estimation.')" class="px-3 py-1.5 bg-navy-900 border border-slate-700 rounded-lg text-xs font-display font-semibold text-slate-400 hover:text-white hover:border-sky-500/50 transition-all">
+            📋 Agency PM Tool
+          </button>
+          <button onclick="setBrief('Promote a fitness coaching app for new mothers. Focus: gentle strength, community, and postpartum-safe workouts.')" class="px-3 py-1.5 bg-navy-900 border border-slate-700 rounded-lg text-xs font-display font-semibold text-slate-400 hover:text-white hover:border-sky-500/50 transition-all">
+            💪 Fitness App
+          </button>
+        </div>
+
+        <!-- Generate button -->
+        <button onclick="generateKit()" class="btn btn-primary w-full !py-3.5 text-base !rounded-xl shadow-lg shadow-sky-500/20">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <span id="generateBtn">Build My Kit</span>
+        </button>
+
+        <!-- Kit output area (hidden initially) -->
+        <div id="kitOutput" class="mt-8 hidden">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="flex h-2 w-2 relative">
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+            </span>
+            <span class="text-sm font-display font-semibold text-emerald-400">Kit assembled</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4" id="kitCards">
+            <!-- Cards populated by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- FEATURES SECTION -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section id="features" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/50">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <p class="text-sm font-display font-bold tracking-widest uppercase text-indigo-400 mb-3">Features</p>
+        <h2 class="text-3xl sm:text-4xl font-display font-bold tracking-tight">Everything you need,<br><span class="gradient-text">nothing you don't.</span></h2>
+        <p class="text-slate-400 mt-4 max-w-xl mx-auto">BriefKit gives you a complete toolkit — not just one piece. Every tool works together because they came from the same brief.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Feature 1 -->
+        <div class="feature-card bg-navy-800/40 border border-slate-700/50 rounded-2xl p-6 hover:border-sky-500/40 glow-hover">
+          <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          </div>
+          <h3 class="text-lg font-display font-bold mb-2">Brief Parser</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">Drop in any format — plain text, bullet points, or a full document. BriefKit extracts the essence and structures it for action.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card bg-navy-800/40 border border-slate-700/50 rounded-2xl p-6 hover:border-indigo-500/40 glow-accent">
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+          </div>
+          <h3 class="text-lg font-display font-bold mb-2">Kit Assembly</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">From one brief, BriefKit assembles a complete set of tools: content templates, strategy outlines, campaign plans, and asset checklists.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card bg-navy-800/40 border border-slate-700/50 rounded-2xl p-6 hover:border-purple-500/40">
+          <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          </div>
+          <h3 class="text-lg font-display font-bold mb-2">Smart Iteration</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">Refine your brief and watch your kit evolve. Every edit re-assembles the tools to match, keeping strategy and execution perfectly aligned.</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card bg-navy-800/40 border border-slate-700/50 rounded-2xl p-6 hover:border-sky-500/40 glow-hover">
+          <div class="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+          </div>
+          <h3 class="text-lg font-display font-bold mb-2">Multi-Format Export</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">Ship your kit anywhere — PDF, Notion, Slack, or straight to your CMS. Each format is optimized for its destination.</p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card bg-navy-800/40 border border-slate-700/50 rounded-2xl p-6 hover:border-indigo-500/40 glow-accent">
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <h3 class="text-lg font-display font-bold mb-2">Team Collaboration</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">Share briefs and kits with your team. Comment, approve, and iterate together — one source of truth for every project.</p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-card bg-navy-800/40 border border-slate-700/50 rounded-2xl p-6 hover:border-spark-500/40">
+          <div class="w-10 h-10 rounded-xl bg-spark-500/10 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-spark-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <h3 class="text-lg font-display font-bold mb-2">Instant Assembly</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">Brief → Kit in seconds. No loading screens, no multi-step wizards. Your kit is ready the moment you submit your brief.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- HOW IT WORKS SECTION -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section id="how" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/50">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16">
+        <p class="text-sm font-display font-bold tracking-widest uppercase text-sky-400 mb-3">How It Works</p>
+        <h2 class="text-3xl sm:text-4xl font-display font-bold tracking-tight">3 steps. 1 breakthrough.</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+        <!-- Step 1 -->
+        <div class="text-center">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-500 to-sky-600 flex items-center justify-center mx-auto mb-5 shadow-lg shadow-sky-500/20">
+            <span class="text-xl font-display font-extrabold text-white">1</span>
+          </div>
+          <div class="w-16 h-16 rounded-2xl bg-navy-800 border border-slate-700 flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          </div>
+          <h3 class="text-lg font-display font-bold mb-2">Write Your Brief</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">Jot down your idea in plain language. A sentence, a paragraph, or a full brief document — BriefKit handles any format.</p>
+        </div>
+
+        <!-- Connector (desktop only) -->
+        <div class="hidden md:flex items-start justify-center pt-7">
+          <svg class="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </div>
+
+        <!-- Step 2 (actually step 2 card, replacing connector) -->
+      </div>
+
+      <!-- Redo as a proper 3-col layout -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 mt-4">
+        <!-- Step 1 -->
+        <div class="text-center">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-500 to-sky-600 flex items-center justify-center mx-auto mb-5 shadow-lg shadow-sky-500/20">
+            <span class="text-xl font-display font-extrabold text-white">1</span>
+          </div>
+          <div class="w-16 h-16 rounded-2xl bg-navy-800 border border-slate-700 flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          </div>
+          <h3 class="text-lg font-display font-bold mb-2">Write Your Brief</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">Jot down your idea in plain language. A sentence, a paragraph, or a full brief document — BriefKit handles any format.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="text-center">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center mx-auto mb-5 shadow-lg shadow-indigo-500/20">
+            <span class="text-xl font-display font-extrabold text-white">2</span>
+          </div>
+          <div class="w-16 h-16 rounded-2xl bg-navy-800 border border-slate-700 flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+          </div>
+          <h3 class="text-lg font-display font-bold mb-2">Kit Assembles Itself</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">BriefKit analyzes your brief and instantly builds the right toolkit — content plans, messaging frameworks, channel strategies, and more.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="text-center">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center mx-auto mb-5 shadow-lg shadow-purple-500/20">
+            <span class="text-xl font-display font-extrabold text-white">3</span>
+          </div>
+          <div class="w-16 h-16 rounded-2xl bg-navy-800 border border-slate-700 flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <h3 class="text-lg font-display font-bold mb-2">Ship Your Kit</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">Export, share, or publish. Your kit is ready to go — formatted for every platform and channel your brief requires.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PRICING SECTION -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section id="pricing" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/50">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16">
+        <p class="text-sm font-display font-bold tracking-widest uppercase text-spark-500 mb-3">Pricing</p>
+        <h2 class="text-3xl sm:text-4xl font-display font-bold tracking-tight">Simple pricing. Serious tools.</h2>
+        <p class="text-slate-400 mt-3 max-w-xl mx-auto">Start free. Upgrade when you're ready to brief at scale.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <!-- Free Plan -->
+        <div class="bg-navy-800/40 border border-slate-700/50 rounded-2xl p-6 sm:p-8 feature-card">
+          <h3 class="text-lg font-display font-bold mb-1">Starter</h3>
+          <p class="text-sm text-slate-400 mb-6">For individuals exploring the workflow.</p>
+          <div class="mb-6">
+            <span class="text-4xl font-display font-extrabold">$0</span>
+            <span class="text-slate-400 text-sm">/month</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-2 text-sm text-slate-300">
+              <svg class="w-4 h-4 text-sky-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              3 briefs per month
+            </li>
+            <li class="flex items-center gap-2 text-sm text-slate-300">
+              <svg class="w-4 h-4 text-sky-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Basic kit assembly
+            </li>
+            <li class="flex items-center gap-2 text-sm text-slate-300">
+              <svg class="w-4 h-4 text-sky-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              PDF export
+            </li>
+          </ul>
+          <a href="#demo" class="btn btn-secondary w-full !bg-navy-900 !text-white !border-slate-700 hover:!border-sky-500/50 hover:!bg-navy-800">Get Started</a>
+        </div>
+
+        <!-- Pro Plan (highlighted) -->
+        <div class="bg-navy-800/60 border-2 border-indigo-500/60 rounded-2xl p-6 sm:p-8 feature-card relative shadow-lg shadow-indigo-500/10">
+          <!-- Popular badge -->
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full text-xs font-display font-bold tracking-wide text-white">
+            Most Popular
+          </div>
+          <h3 class="text-lg font-display font-bold mb-1">Pro</h3>
+          <p class="text-sm text-slate-400 mb-6">For creators and teams shipping regularly.</p>
+          <div class="mb-6">
+            <span class="text-4xl font-display font-extrabold">$29</span>
+            <span class="text-slate-400 text-sm">/month</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-2 text-sm text-slate-300">
+              <svg class="w-4 h-4 text-indigo-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Unlimited briefs
+            </li>
+            <li class="flex items-center gap-2 text-sm text-slate-300">
+              <svg class="w-4 h-4 text-indigo-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Advanced kit assembly + AI refinement
+            </li>
+            <li class="flex items-center gap-2 text-sm text-slate-300">
+              <svg class="w-4 h-4 text-indigo-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              All export formats
+            </li>
+            <li class="flex items-center gap-2 text-sm text-slate-300">
+              <svg class="w-4 h-4 text-indigo-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Team sharing (up to 5)
+            </li>
+          </ul>
+          <a href="#demo" class="btn btn-primary w-full shadow-lg shadow-indigo-500/20">Start Pro Trial</a>
+        </div>
+
+        <!-- Team Plan -->
+        <div class="bg-navy-800/40 border border-slate-700/50 rounded-2xl p-6 sm:p-8 feature-card">
+          <h3 class="text-lg font-display font-bold mb-1">Team</h3>
+          <p class="text-sm text-slate-400 mb-6">For agencies and large teams at scale.</p>
+          <div class="mb-6">
+            <span class="text-4xl font-display font-extrabold">$79</span>
+            <span class="text-slate-400 text-sm">/month</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-2 text-sm text-slate-300">
+              <svg class="w-4 h-4 text-purple-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Everything in Pro
+            </li>
+            <li class="flex items-center gap-2 text-sm text-slate-300">
+              <svg class="w-4 h-4 text-purple-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Unlimited team members
+            </li>
+            <li class="flex items-center gap-2 text-sm text-slate-300">
+              <svg class="w-4 h-4 text-purple-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Custom templates & branding
+            </li>
+            <li class="flex items-center gap-2 text-sm text-slate-300">
+              <svg class="w-4 h-4 text-purple-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Priority support & API access
+            </li>
+          </ul>
+          <a href="#demo" class="btn btn-secondary w-full !bg-navy-900 !text-white !border-slate-700 hover:!border-purple-500/50 hover:!bg-navy-800">Contact Sales</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- CTA SECTION -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/50 relative overflow-hidden">
+    <!-- Glow -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-gradient-to-r from-sky-500/10 via-indigo-500/10 to-purple-500/10 rounded-full blur-3xl -z-10"></div>
+
+    <div class="max-w-3xl mx-auto text-center relative z-10">
+      <h2 class="text-3xl sm:text-4xl font-display font-bold tracking-tight mb-4">Ready to turn your next brief<br><span class="gradient-text">into a breakthrough?</span></h2>
+      <p class="text-slate-400 mb-8 max-w-lg mx-auto">Join thousands of creators and teams who've already made the switch from scattered tools to BriefKit.</p>
+      <a href="#demo" class="btn btn-primary text-base !py-3.5 !px-10 shadow-xl shadow-sky-500/20">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        Build Your First Kit — It's Free
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- FOOTER -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <footer class="py-12 px-4 sm:px-6 lg:px-8 border-t border-slate-800/50 bg-navy-950">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-start gap-8">
+        <div>
+          <img src="./logo-white.svg" alt="BriefKit Logo" class="h-8 w-auto mb-3">
+          <p class="text-sm text-slate-500 max-w-xs">Turn your brief into a breakthrough. The smart toolkit for creators and teams.</p>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-8 text-sm">
+          <div>
+            <h4 class="font-display font-semibold text-slate-300 mb-3">Product</h4>
+            <ul class="space-y-2 text-slate-500">
+              <li><a href="#features" class="hover:text-white transition-colors">Features</a></li>
+              <li><a href="#pricing" class="hover:text-white transition-colors">Pricing</a></li>
+              <li><a href="#demo" class="hover:text-white transition-colors">Demo</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-display font-semibold text-slate-300 mb-3">Company</h4>
+            <ul class="space-y-2 text-slate-500">
+              <li><a href="#" class="hover:text-white transition-colors">About</a></li>
+              <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+              <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-display font-semibold text-slate-300 mb-3">Legal</h4>
+            <ul class="space-y-2 text-slate-500">
+              <li><a href="#" class="hover:text-white transition-colors">Privacy</a></li>
+              <li><a href="#" class="hover:text-white transition-colors">Terms</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="mt-10 pt-6 border-t border-slate-800/50 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <p class="text-xs text-slate-600">© 2025 BriefKit. All rights reserved.</p>
+        <div class="flex items-center gap-4 text-slate-600">
+          <a href="#" class="hover:text-slate-400 transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.128 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+          </a>
+          <a href="#" class="hover:text-slate-400 transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="#" class="hover:text-slate-400 transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- DEMO WIDGET JAVASCRIPT -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <script>
+    // Kit data for demo presets
+    const kitData = {
+      coffee: {
+        brief: "Launch a premium coffee subscription box for remote workers. Emphasis on single-origin beans and ritual experience.",
+        cards: [
+          {
+            icon: '📝',
+            title: 'Content Kit',
+            color: 'sky',
+            items: ['5 email sequences for onboarding', '3 Instagram carousel templates', '1 brand story blog post outline', 'Hashtag strategy: #CoffeeRitual #RemoteWorkFuel']
+          },
+          {
+            icon: '📊',
+            title: 'Strategy Kit',
+            color: 'indigo',
+            items: ['Positioning: "The ritual, not just the roast"', 'Target personas: Remote PMs, Design leads', 'Pricing ladder: $29 → $49 → $79/mo', 'Launch timeline: 6-week sprint plan']
+          },
+          {
+            icon: '🎯',
+            title: 'Campaign Kit',
+            color: 'purple',
+            items: ['Pre-launch waitlist landing page', '"Morning Ritual" video concept', 'Influencer outreach list (50 creators)', 'Week-1 social launch calendar']
+          }
+        ]
+      },
+      agency: {
+        brief: "Introduce a B2B project management tool for creative agencies. Key differentiator: visual timeline + AI task estimation.",
+        cards: [
+          {
+            icon: '📝',
+            title: 'Content Kit',
+            color: 'sky',
+            items: ['3 LinkedIn thought leadership posts', '2 case study outlines', 'Product comparison one-pager', 'Demo script for sales calls']
+          },
+          {
+            icon: '📊',
+            title: 'Strategy Kit',
+            color: 'indigo',
+            items: ['Positioning: "See the timeline. Ship on time."', 'ICP: Creative directors at 20-100 person agencies', 'Competitive matrix vs Monday/Asana/Basecamp', 'Pricing: $15/user/mo, annual discount']
+          },
+          {
+            icon: '🎯',
+            title: 'Campaign Kit',
+            color: 'purple',
+            items: ['ProductHunt launch playbook', '"Timeline Preview" interactive demo', 'Agency partner referral program', 'Conference sponsorship shortlist']
+          }
+        ]
+      },
+      fitness: {
+        brief: "Promote a fitness coaching app for new mothers. Focus: gentle strength, community, and postpartum-safe workouts.",
+        cards: [
+          {
+            icon: '📝',
+            title: 'Content Kit',
+            color: 'sky',
+            items: ['4 Instagram Reels scripts', '7-day "Gentle Start" challenge content', 'Testimonial collection email template', 'Community welcome sequence']
+          },
+          {
+            icon: '📊',
+            title: 'Strategy Kit',
+            color: 'indigo',
+            items: ['Positioning: "Strong at your pace"', 'Target: Moms 6mo-2yr postpartum', 'Free tier: 3 gentle workouts/week', 'Community-first growth: referral loops']
+          },
+          {
+            icon: '🎯',
+            title: 'Campaign Kit',
+            color: 'purple',
+            items: ['"Mom & Me" challenge launch event', 'Postpartum wellness expert partnerships', 'Instagram Mom-creator collaborations', 'App Store optimization brief']
+          }
+        ]
+      }
+    };
+
+    function setBrief(text) {
+      document.getElementById('briefInput').value = text;
+    }
+
+    function generateKit() {
+      const input = document.getElementById('briefInput').value.trim().toLowerCase();
+      const output = document.getElementById('kitOutput');
+      const cards = document.getElementById('kitCards');
+      const btn = document.getElementById('generateBtn');
+
+      // Determine which preset to show (or default)
+      let data = kitData.coffee;
+      if (input.includes('agency') || input.includes('project') || input.includes('b2b')) {
+        data = kitData.agency;
+      } else if (input.includes('fitness') || input.includes('mom') || input.includes('postpartum')) {
+        data = kitData.fitness;
+      } else if (input.includes('coffee') || input.includes('bean') || input.includes('subscription')) {
+        data = kitData.coffee;
+      } else if (input.length > 10) {
+        // For custom briefs, show the coffee kit as a demo
+        data = kitData.coffee;
+      } else {
+        // Too short — prompt
+        document.getElementById('briefInput').focus();
+        document.getElementById('briefInput').placeholder = 'Type a brief first, then hit Build My Kit!';
+        return;
+      }
+
+      // Loading state
+      btn.textContent = 'Assembling Kit...';
+
+      setTimeout(() => {
+        // Build cards
+        cards.innerHTML = data.cards.map((card, i) => {
+          const colorMap = {
+            sky: { bg: 'bg-sky-500/10', border: 'border-sky-500/30', text: 'text-sky-400', dot: 'bg-sky-400' },
+            indigo: { bg: 'bg-indigo-500/10', border: 'border-indigo-500/30', text: 'text-indigo-400', dot: 'bg-indigo-400' },
+            purple: { bg: 'bg-purple-500/10', border: 'border-purple-500/30', text: 'text-purple-400', dot: 'bg-purple-400' }
+          };
+          const c = colorMap[card.color];
+
+          return `
+            <div class="kit-piece-${i+1} ${c.bg} border ${c.border} rounded-xl p-5">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="text-lg">${card.icon}</span>
+                <h4 class="font-display font-bold ${c.text}">${card.title}</h4>
+              </div>
+              <ul class="space-y-2">
+                ${card.items.map(item => `
+                  <li class="flex items-start gap-2 text-sm text-slate-300">
+                    <span class="w-1.5 h-1.5 ${c.dot} rounded-full mt-1.5 flex-shrink-0"></span>
+                    ${item}
+                  </li>
+                `).join('')}
+              </ul>
+            </div>
+          `;
+        }).join('');
+
+        output.classList.remove('hidden');
+        btn.textContent = 'Build My Kit';
+
+        // Scroll to output
+        output.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 800);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0EA5E9"/>
+      <stop offset="50%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#A855F7"/>
+    </linearGradient>
+    <linearGradient id="foldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#4F46E5"/>
+    </linearGradient>
+    <linearGradient id="sparkGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#F97316"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded square background -->
+  <rect x="16" y="16" width="480" height="480" rx="96" fill="url(#iconGrad)"/>
+  <!-- Brief document shape - front -->
+  <path d="M140 120 L300 120 L340 160 L340 380 L140 380 Z" fill="white" fill-opacity="0.95"/>
+  <!-- Brief fold corner -->
+  <path d="M300 120 L300 160 L340 160 Z" fill="white" fill-opacity="0.7"/>
+  <!-- Document lines (the "brief" text) -->
+  <rect x="170" y="190" width="120" height="8" rx="4" fill="#0EA5E9" fill-opacity="0.5"/>
+  <rect x="170" y="212" width="100" height="8" rx="4" fill="#6366F1" fill-opacity="0.4"/>
+  <rect x="170" y="234" width="130" height="8" rx="4" fill="#0EA5E9" fill-opacity="0.35"/>
+  <!-- Kit elements - tool pieces emerging from the brief -->
+  <!-- Puzzle/tool piece 1 -->
+  <rect x="175" y="275" width="44" height="44" rx="10" fill="url(#iconGrad)" fill-opacity="0.85"/>
+  <rect x="185" y="285" width="24" height="24" rx="5" fill="white" fill-opacity="0.9"/>
+  <!-- Puzzle/tool piece 2 -->
+  <rect x="230" y="275" width="44" height="44" rx="10" fill="#A855F7" fill-opacity="0.8"/>
+  <path d="M244 296 L250 288 L256 296 L252 296 L252 308 L248 308 L248 296 Z" fill="white" fill-opacity="0.9"/>
+  <!-- Puzzle/tool piece 3 -->
+  <rect x="285" y="275" width="44" height="44" rx="10" fill="#0EA5E9" fill-opacity="0.75"/>
+  <circle cx="307" cy="297" r="10" fill="white" fill-opacity="0.9"/>
+  <!-- Spark/innovation indicator -->
+  <circle cx="345" cy="125" r="8" fill="url(#sparkGrad)"/>
+  <circle cx="345" cy="125" r="4" fill="white" fill-opacity="0.8"/>
+</svg>

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 160" fill="none">
+  <defs>
+    <linearGradient id="wordmarkGradW" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#818CF8"/>
+    </linearGradient>
+    <linearGradient id="kitGradW" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#818CF8"/>
+      <stop offset="100%" stop-color="#C084FC"/>
+    </linearGradient>
+    <linearGradient id="iconGradW" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0EA5E9"/>
+      <stop offset="50%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#A855F7"/>
+    </linearGradient>
+  </defs>
+  <!-- Icon mark -->
+  <g transform="translate(8, 8)">
+    <rect x="0" y="0" width="144" height="144" rx="28" fill="url(#iconGradW)"/>
+    <!-- Brief document -->
+    <path d="M38 32 L88 32 L100 44 L100 112 L38 112 Z" fill="white" fill-opacity="0.95"/>
+    <path d="M88 32 L88 44 L100 44 Z" fill="white" fill-opacity="0.7"/>
+    <!-- Document lines -->
+    <rect x="48" y="54" width="36" height="3" rx="1.5" fill="#0EA5E9" fill-opacity="0.5"/>
+    <rect x="48" y="62" width="30" height="3" rx="1.5" fill="#6366F1" fill-opacity="0.4"/>
+    <rect x="48" y="70" width="40" height="3" rx="1.5" fill="#0EA5E9" fill-opacity="0.35"/>
+    <!-- Kit pieces -->
+    <rect x="50" y="82" width="16" height="16" rx="4" fill="url(#iconGradW)" fill-opacity="0.85"/>
+    <rect x="54" y="86" width="8" height="8" rx="2" fill="white" fill-opacity="0.9"/>
+    <rect x="70" y="82" width="16" height="16" rx="4" fill="#A855F7" fill-opacity="0.8"/>
+    <rect x="86" y="82" width="16" height="16" rx="4" fill="#0EA5E9" fill-opacity="0.75"/>
+    <circle cx="94" cy="90" r="3.5" fill="white" fill-opacity="0.9"/>
+    <!-- Spark -->
+    <circle cx="102" cy="36" r="3" fill="#F59E0B"/>
+    <circle cx="102" cy="36" r="1.5" fill="white" fill-opacity="0.8"/>
+  </g>
+  <!-- Wordmark: Brief (white for dark backgrounds) -->
+  <text x="176" y="108" font-family="'Plus Jakarta Sans', 'Inter', system-ui, sans-serif" font-weight="800" font-size="96" fill="white">
+    Brief
+  </text>
+  <!-- Wordmark: Kit (gradient for dark backgrounds) -->
+  <text x="434" y="108" font-family="'Plus Jakarta Sans', 'Inter', system-ui, sans-serif" font-weight="800" font-size="96" fill="url(#kitGradW)">
+    Kit
+  </text>
+</svg>
