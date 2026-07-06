@@ -1,0 +1,9 @@
+{
+  "name": "briefkit",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "cd api && npm install",
+    "start": "cd api && node src/index.js"
+  }
+}
