@@ -7,17 +7,21 @@ export default function Login() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const { login } = useAuth()
+  const { signin } = useAuth()
   const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); setError('')
     if (!email || !password) { setError('Fill in all fields'); return }
     setLoading(true)
-    const result = await login(email, password)
-    if (result.ok) navigate('/dashboard')
-    else setError(result.error || 'Login failed')
-    setLoading(false)
+    try {
+      await signin(email, password)
+      navigate('/dashboard')
+    } catch (e: any) {
+      setError(e.response?.data?.error || 'Login failed')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return <div className="min-h-screen bg-[#0F172A] flex items-center justify-center p-6">
