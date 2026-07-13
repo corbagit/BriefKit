@@ -8,7 +8,7 @@ export default function Register() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const { register } = useAuth()
+  const { signup } = useAuth()
   const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -16,10 +16,14 @@ export default function Register() {
     if (!name || !email || !password) { setError('Fill in all fields'); return }
     if (password.length < 6) { setError('Password must be at least 6 characters'); return }
     setLoading(true)
-    const result = await register(name, email, password)
-    if (result.ok) navigate('/dashboard')
-    else setError(result.error || 'Registration failed')
-    setLoading(false)
+    try {
+      await signup(name, email, password)
+      navigate('/dashboard')
+    } catch (e: any) {
+      setError(e.response?.data?.error || 'Registration failed')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return <div className="min-h-screen bg-[#0F172A] flex items-center justify-center p-6">
