@@ -48,6 +48,14 @@ const MIGRATIONS = [
       CREATE INDEX IF NOT EXISTS idx_summaries_user_id ON summaries(user_id);
       CREATE INDEX IF NOT EXISTS idx_subscriptions_user_id ON subscriptions(user_id);
     `
+  },
+  {
+    version: 2,
+    name: 'add_paypal_columns',
+    sql: `
+      ALTER TABLE subscriptions ADD COLUMN paypal_subscription_id TEXT;
+      ALTER TABLE subscriptions ADD COLUMN payment_provider TEXT DEFAULT 'stripe';
+    `
   }
 ];
 

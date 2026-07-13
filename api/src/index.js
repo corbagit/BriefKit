@@ -8,6 +8,7 @@ import { runMigrations } from './db/migrate.js';
 import authRoutes from './routes/auth.js';
 import summaryRoutes from './routes/summaries.js';
 import billingRoutes from './routes/billing.js';
+import paypalRoutes from './routes/paypal.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = parseInt(process.env.PORT || '3001', 10);
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/summaries', summaryRoutes);
 app.use('/api/billing', billingRoutes);
+app.use('/api/paypal', paypalRoutes);
 
 // Health
 app.get('/api/health', (req, res) => {
