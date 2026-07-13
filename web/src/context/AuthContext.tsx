@@ -1,39 +1,101 @@
-import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react'
-import api from '../services/api'
+import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import { authApi } from '../services/api';
 
 export interface User {
-  id: string; email: string; name: string; subscription_tier: string; subscription_status: string; summaries_count: number
+  id: string;
+  email: string;
+  name: string;
+  subscription_tier: 'free' | 'pro' | 'unlimited';
+  subscription_status: string;
+  summaries_count: number;
+  created_at: string;
 }
 
-interface AuthCtx { user: User | null; loading: boolean; login: (email: string, password: string) => Promise<{ok: boolean; error?: string}>; register: (name: string, email: string, password: string) => Promise<{ok: boolean; error?: string}>; logout: () => void; refresh: () => Promise<void> }
+interface AuthContextType {
+  user: User | null;
+  token: string | null;
+  loading: boolean;
+  signin: (email: string, password: string) => Promise<void>;
+  signup: (name: string, email: string, password: string) => Promise<void>;
+  signout: () => void;
+  refreshUser: () => Promise<void>;
+}
 
-const AuthContext = createContext<AuthCtx | null>(null)
+const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(() => { const s = localStorage.getItem('bk_user'); return s ? JSON.parse(s) : null })
-  const [loading, setLoading] = useState(false)
+  const [user, setUser] = useState<User | null>(null);
+  const [token, setToken] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (localStorage.getItem('bk_token')) {
-      setLoading(true)
-      api.get('/auth/me').then(r => { setUser(r.data.user); localStorage.setItem('bk_user', JSON.stringify(r.data.user)) }).catch(() => { localStorage.removeItem('bk_token'); localStorage.removeItem('bk_user'); setUser(null) }).finally(() => setLoading(false))
+    const savedToken = localStorage.getItem('briefkit_token');
+    const savedUser = localStorage.getItem('briefkit_user');
+    if (savedToken && savedUser) {
+      try {
+        setToken(savedToken);
+        setUser(JSON.parse(savedUser));
+        // Verify token is still valid by fetching profile
+        authApi.getProfile().then(res => {
+          setUser(res.user);
+          localStorage.setItem('briefkit_user', JSON.stringify(res.user));
+        }).catch(() => {
+          // Token expired — clear
+          localStorage.removeItem('briefkit_token');
+          localStorage.removeItem('briefkit_user');
+          setUser(null);
+          setToken(null);
+        });
+      } catch {
+        localStorage.removeItem('briefkit_token');
+        localStorage.removeItem('briefkit_user');
+      }
     }
-  }, [])
+    setLoading(false);
+  }, []);
 
-  const login = useCallback(async (email: string, password: string) => {
-    try { const r = await api.post('/auth/login', { email, password }); localStorage.setItem('bk_token', r.data.token); localStorage.setItem('bk_user', JSON.stringify(r.data.user)); setUser(r.data.user); return { ok: true } }
-    catch (e: any) { return { ok: false, error: e.response?.data?.error || 'Login failed' } }
-  }, [])
+  const signin = async (email: string, password: string) => {
+    const data = await authApi.login(email, password);
+    setUser(data.user);
+    setToken(data.token);
+    localStorage.setItem('briefkit_token', data.token);
+    localStorage.setItem('briefkit_user', JSON.stringify(data.user));
+  };
 
-  const register = useCallback(async (name: string, email: string, password: string) => {
-    try { const r = await api.post('/auth/signup', { name, email, password }); localStorage.setItem('bk_token', r.data.token); localStorage.setItem('bk_user', JSON.stringify(r.data.user)); setUser(r.data.user); return { ok: true } }
-    catch (e: any) { return { ok: false, error: e.response?.data?.error || 'Registration failed' } }
-  }, [])
+  const signup = async (name: string, email: string, password: string) => {
+    const data = await authApi.signup(name, email, password);
+    setUser(data.user);
+    setToken(data.token);
+    localStorage.setItem('briefkit_token', data.token);
+    localStorage.setItem('briefkit_user', JSON.stringify(data.user));
+  };
 
-  const logout = useCallback(() => { localStorage.removeItem('bk_token'); localStorage.removeItem('bk_user'); setUser(null) }, [])
-  const refresh = useCallback(async () => { try { const r = await api.get('/auth/me'); setUser(r.data.user); localStorage.setItem('bk_user', JSON.stringify(r.data.user)) } catch {} }, [])
+  const signout = () => {
+    setUser(null);
+    setToken(null);
+    localStorage.removeItem('briefkit_token');
+    localStorage.removeItem('briefkit_user');
+  };
 
-  return <AuthContext.Provider value={{ user, loading, login, register, logout, refresh }}>{children}</AuthContext.Provider>
+  const refreshUser = async () => {
+    try {
+      const data = await authApi.getProfile();
+      setUser(data.user);
+      localStorage.setItem('briefkit_user', JSON.stringify(data.user));
+    } catch {
+      // ignore
+    }
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, token, loading, signin, signup, signout, refreshUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
-export function useAuth() { const c = useContext(AuthContext); if (!c) throw new Error('useAuth must be within AuthProvider'); return c }
+export function useAuth() {
+  const ctx = useContext(AuthContext);
+  if (!ctx) throw new Error('useAuth must be used within AuthProvider');
+  return ctx;
+}

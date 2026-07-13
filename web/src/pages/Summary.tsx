@@ -1,77 +1,243 @@
-import { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
-import api from '../services/api'
+import { useParams, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { summariesApi } from '../services/api';
+import { useState, useEffect } from 'react';
+import Footer from '../components/Footer';
 
 interface SummaryData {
-  id: string; title: string; summary: string; key_takeaways: string[]; actionable_insights: string[]; source_url: string | null; source_text: string | null; created_at: string
+  id: string;
+  title: string;
+  summary: string;
+  source_url: string | null;
+  source_text: string | null;
+  key_takeaways: string[];
+  actionable_insights: string[];
+  created_at: string;
 }
 
 export default function Summary() {
-  const { id } = useParams()
-  const [data, setData] = useState<SummaryData | null>(null)
-  const [loading, setLoading] = useState(true)
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const [summary, setSummary] = useState<SummaryData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    if (id) api.get(`/summaries/${id}`).then(r => setData(r.data.summary)).catch(() => {}).finally(() => setLoading(false))
-  }, [id])
+    if (!id) return;
+    setLoading(true);
+    summariesApi.get(id)
+      .then(data => {
+        setSummary(data.summary);
+      })
+      .catch(err => {
+        setError(err.response?.data?.error || 'Failed to load summary');
+      })
+      .finally(() => setLoading(false));
+  }, [id]);
 
-  if (loading) return <div className="min-h-screen bg-[#0F172A] flex items-center justify-center"><div className="animate-spin w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full" /></div>
-  if (!data) return <div className="min-h-screen bg-[#0F172A] flex items-center justify-center text-slate-400">Summary not found</div>
+  if (loading) {
+    return (
+      <div style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'var(--light-bg)',
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{
+            width: 48,
+            height: 48,
+            border: '4px solid var(--light-border)',
+            borderTopColor: 'var(--brand-primary)',
+            borderRadius: '50%',
+            animation: 'spin 0.8s linear infinite',
+            margin: '0 auto 24px',
+          }} />
+          <p style={{ color: 'var(--light-text-muted)' }}>Loading summary…</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !summary) {
+    return (
+      <div style={{ minHeight: '100vh', background: 'var(--light-bg)' }}>
+        <div className="container" style={{ paddingTop: 48, textAlign: 'center' }}>
+          <p style={{ fontSize: '3rem', marginBottom: 16 }}>🔍</p>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-2xl)', fontWeight: 600, marginBottom: 8 }}>
+            Summary not found
+          </h2>
+          <p style={{ color: 'var(--light-text-muted)', marginBottom: 24 }}>{error || 'This summary does not exist or has been deleted.'}</p>
+          <button onClick={() => navigate('/dashboard')} className="btn btn-primary">
+            Back to Dashboard
+          </button>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-[#0F172A]">
-      <nav className="border-b border-slate-800 p-4 max-w-4xl mx-auto flex items-center gap-4">
-        <Link to="/dashboard" className="text-blue-400 hover:text-blue-300 text-sm">← Back</Link>
-        <span className="text-white font-display font-bold">CorbaBriefKit</span>
-      </nav>
+    <div style={{ minHeight: '100vh', background: 'var(--light-bg)' }}>
+      {/* Header */}
+      <div style={{
+        background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)',
+        padding: '32px 0',
+      }}>
+        <div className="container">
+          <button
+            onClick={() => navigate('/dashboard')}
+            style={{
+              color: '#94A3B8',
+              fontSize: 'var(--text-sm)',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              marginBottom: 16,
+              fontFamily: 'var(--font-sans)',
+            }}
+          >
+            ← Back to Dashboard
+          </button>
+          <h1 style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 'var(--text-2xl)',
+            fontWeight: 700,
+            color: '#F8FAFC',
+            marginBottom: 8,
+          }}>
+            {summary.title}
+          </h1>
+          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
+            <span className="badge badge-primary">Summary</span>
+            <span style={{ fontSize: 'var(--text-sm)', color: '#64748B', display: 'flex', alignItems: 'center', gap: 4 }}>
+              🕐 {new Date(summary.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+            </span>
+            {summary.source_url && (
+              <a
+                href={summary.source_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ fontSize: 'var(--text-sm)', color: '#0EA5E9', display: 'flex', alignItems: 'center', gap: 4 }}
+              >
+                🔗 Source
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
 
-      <main className="max-4xl mx-auto p-6 max-w-4xl">
-        <h1 className="text-2xl font-bold text-white font-display mb-6">{data.title}</h1>
-
-        <div className="space-y-6">
-          {/* Summary */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-            <h2 className="text-sm font-semibold text-blue-400 uppercase tracking-wider mb-3">Summary</h2>
-            <p className="text-slate-300 leading-relaxed">{data.summary}</p>
+      {/* Content */}
+      <div className="container" style={{ marginTop: 24, paddingBottom: 48 }}>
+        <div style={{ maxWidth: 800 }}>
+          {/* Summary Text */}
+          <div className="card" style={{ transform: 'none', marginBottom: 24 }}>
+            <h2 style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'var(--text-lg)',
+              fontWeight: 600,
+              marginBottom: 12,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+            }}>
+              📝 Summary
+            </h2>
+            <p style={{ lineHeight: 1.7, color: 'var(--light-text-main)' }}>{summary.summary}</p>
           </div>
 
           {/* Key Takeaways */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-            <h2 className="text-sm font-semibold text-emerald-400 uppercase tracking-wider mb-3">Key Takeaways</h2>
-            <ul className="space-y-2">
-              {data.key_takeaways.map((t, i) => (
-                <li key={i} className="flex items-start gap-2 text-slate-300 text-sm">
-                  <span className="text-emerald-400 mt-1">•</span>
-                  <span>{t}</span>
-                </li>
+          <div className="card" style={{ transform: 'none', marginBottom: 24 }}>
+            <h2 style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'var(--text-lg)',
+              fontWeight: 600,
+              marginBottom: 12,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+            }}>
+              💡 Key Takeaways
+            </h2>
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingLeft: 20 }}>
+              {summary.key_takeaways.map((item, i) => (
+                <li key={i} style={{ lineHeight: 1.6, color: 'var(--light-text-main)' }}>{item}</li>
               ))}
             </ul>
           </div>
 
           {/* Actionable Insights */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-            <h2 className="text-sm font-semibold text-amber-400 uppercase tracking-wider mb-3">Actionable Insights</h2>
-            <ul className="space-y-2">
-              {data.actionable_insights.map((a, i) => (
-                <li key={i} className="flex items-start gap-2 text-slate-300 text-sm">
-                  <span className="text-amber-400 mt-1">→</span>
-                  <span>{a}</span>
-                </li>
+          <div className="card" style={{ transform: 'none', marginBottom: 24 }}>
+            <h2 style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'var(--text-lg)',
+              fontWeight: 600,
+              marginBottom: 12,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+            }}>
+              ⚡ Actionable Insights
+            </h2>
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingLeft: 20 }}>
+              {summary.actionable_insights.map((item, i) => (
+                <li key={i} style={{ lineHeight: 1.6, color: 'var(--light-text-main)' }}>{item}</li>
               ))}
             </ul>
           </div>
 
-          {/* Source */}
-          {data.source_url && (
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-              <h2 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-3">Source</h2>
-              <a href={data.source_url} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 text-sm break-all">{data.source_url}</a>
+          {/* Source text preview */}
+          {summary.source_text && (
+            <div className="card" style={{ transform: 'none', marginBottom: 24 }}>
+              <h2 style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'var(--text-lg)',
+                fontWeight: 600,
+                marginBottom: 12,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+              }}>
+                📄 Original Text
+              </h2>
+              <p style={{ lineHeight: 1.7, color: 'var(--light-text-muted)', fontSize: 'var(--text-sm)', whiteSpace: 'pre-wrap' }}>
+                {summary.source_text}
+              </p>
             </div>
           )}
 
-          <p className="text-xs text-slate-600 text-center">Created {new Date(data.created_at).toLocaleDateString()}</p>
+          {/* Actions */}
+          <div style={{ display: 'flex', gap: 12 }}>
+            <button onClick={() => navigate('/dashboard')} className="btn btn-secondary">
+              ← Back to Dashboard
+            </button>
+            <button
+              onClick={() => {
+                const text = [
+                  `# ${summary.title}`,
+                  '',
+                  '## Summary',
+                  summary.summary,
+                  '',
+                  '## Key Takeaways',
+                  ...summary.key_takeaways.map(t => `- ${t}`),
+                  '',
+                  '## Actionable Insights',
+                  ...summary.actionable_insights.map(i => `- ${i}`),
+                ].join('\n');
+                navigator.clipboard.writeText(text);
+              }}
+              className="btn btn-primary"
+            >
+              📋 Copy as Markdown
+            </button>
+          </div>
         </div>
-      </main>
+      </div>
+
+      <Footer />
     </div>
-  )
+  );
 }

@@ -6,6 +6,9 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Summary from './pages/Summary';
+import Settings from './pages/Settings';
+import Pricing from './pages/Pricing';
+import Admin from './pages/Admin';
 import './App.css';
 
 function App() {
@@ -17,6 +20,7 @@ function App() {
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/pricing" element={<Pricing />} />
             <Route
               path="/dashboard"
               element={
@@ -26,10 +30,26 @@ function App() {
               }
             />
             <Route
-              path="/summary"
+              path="/summary/:id"
               element={
                 <ProtectedRoute>
                   <Summary />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/settings"
+              element={
+                <ProtectedRoute>
+                  <Settings />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
+                  <Admin />
                 </ProtectedRoute>
               }
             />
