@@ -126,7 +126,7 @@ export default function Landing() {
     <div style={{ background: '#0F172A', color: '#F8FAFC' }}>
       </div>
  )
-  );
+  };
       {/* Top Announcement Bar */}
       <div style={{
         background: 'linear-gradient(135deg, #0EA5E9, #6366F1)',
