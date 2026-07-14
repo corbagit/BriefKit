@@ -133,9 +133,9 @@ export default function Landing() {
         fontWeight: 500,
       }}>
         <span className="badge badge-spark" style={{ marginRight: 8 }}>⚡ Now in Public Beta</span>
-        <Link to="/pricing" style={{ color: 'white', textDecoration: 'underline', textUnderlineOffset: 2 }
-        }>
-      </div>
+        <Link to="/pricing" style={{ color: 'white', textDecoration: 'underline', textUnderlineOffset: 2 }}>
+  Free to Start →
+</Link>
       {/* Nav */}
       <nav style={{
         position: 'sticky',
@@ -160,7 +160,7 @@ export default function Landing() {
             <a href="#how" style={{ fontSize: 'var(--text-sm)', color: '#94A3B8', transition: 'color 0.2s' }}>How It Works</a>
             <a href="#pricing" style={{ fontSize: 'var(--text-sm)', color: '#94A3B8', transition: 'color 0.2s' }}>Pricing</a>
             <Link to="/login" style={{ fontSize: 'var(--text-sm)', color: '#94A3B8', padding: '8px 16px' }}>Sign In</Link>
-            <Link to="/pricing" ...>Pricing</Link>
+            <Link to="/pricing" style={{ fontSize: 'var(--text-sm)', color: '#94A3B8', transition: 'color 0.2s' }}>Pricing</Link>
           </div>
         </div>
       </nav>
