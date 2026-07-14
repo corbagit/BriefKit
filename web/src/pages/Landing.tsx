@@ -575,6 +575,6 @@ export default function Landing() {
           <p style={{ color: '#64748B', fontSize: 'var(--text-sm)', marginTop: 16 }}>No credit card required. Includes 3 free kits per month.</p>
         </div>
       </section>
-    </div>
+  
   );
 }
