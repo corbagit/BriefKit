@@ -52,11 +52,6 @@ export default function Landing() {
 
   return (
     <div style={{ background: '#0F172A', color: '#F8FAFC' }}>
-      <div style={{ background: 'linear-gradient(135deg, #0EA5E9, #6366F1)', padding: '8px 16px', textAlign: 'center', fontSize: 'var(--text-sm)', fontWeight: 500 }}>
-        <span style={{ marginRight: 8 }}>⚡ Now in Public Beta</span>
-        <Link to="/pricing" style={{ color: 'white', textDecoration: 'underline' }}>Free to Start →</Link>
-      </div>
-
       <nav style={{ position: 'sticky', top: 0, zIndex: 50, background: 'rgba(15, 23, 42, 0.95)', backdropFilter: 'blur(12px)', borderBottom: '1px solid rgba(51, 65, 85, 0.5)' }}>
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px' }}>
           <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -156,9 +151,44 @@ export default function Landing() {
 
       <section id="pricing" style={{ padding: '100px 0' }}>
         <div className="container" style={{ textAlign: 'center' }}>
+          <p style={{ color: '#0EA5E9', fontSize: 'var(--text-sm)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 8 }}>Pricing</p>
           <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700, marginBottom: 16 }}>Simple, transparent pricing</h2>
-          <p style={{ color: '#94A3B8', marginBottom: 32, fontSize: 'var(--text-lg)' }}>Start free. Upgrade when you need more.</p>
-          <Link to="/pricing" className="btn btn-primary" style={{ fontSize: 'var(--text-base)', padding: '16px 40px' }}>View Plans →</Link>
+          <p style={{ color: '#94A3B8', marginBottom: 48, fontSize: 'var(--text-lg)' }}>Start free. Upgrade when you need more.</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24, maxWidth: 960, margin: '0 auto' }}>
+            {[
+              { id: 'free', name: 'Free', price: 0, summaries: '5', features: ['5 summaries/month', 'Basic summary generation', 'Key takeaways', 'Email support'], popular: false },
+              { id: 'pro', name: 'Pro', price: 9, summaries: '50', features: ['50 summaries/month', 'Advanced summary generation', 'Key takeaways & insights', 'Priority support', 'Markdown export'], popular: true },
+              { id: 'unlimited', name: 'Unlimited', price: 19, summaries: 'Unlimited', features: ['Unlimited summaries', 'Advanced summary generation', 'Key takeaways & insights', 'Priority support', 'Markdown export', 'API access', 'Team collaboration'], popular: false },
+            ].map((plan, i) => (
+              <div key={plan.id} style={{ padding: '32px 24px', borderRadius: 'var(--radius-xl)', background: 'rgba(30, 41, 59, 0.5)', border: `1px solid ${plan.popular ? '#0EA5E9' : 'rgba(51, 65, 85, 0.5)'}`, position: 'relative', textAlign: 'center' }}>
+                {plan.popular && (
+                  <div style={{ position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)', background: 'linear-gradient(135deg, #0EA5E9, #6366F1)', color: 'white', padding: '4px 16px', borderRadius: 'var(--radius-full)', fontSize: 'var(--text-xs)', fontWeight: 600 }}>
+                    Most Popular
+                  </div>
+                )}
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-2xl)', fontWeight: 700, marginBottom: 8, marginTop: plan.popular ? 8 : 0, textTransform: 'capitalize' }}>{plan.name}</h3>
+                <div style={{ marginBottom: 24 }}>
+                  <span style={{ fontSize: 'var(--text-5xl)', fontWeight: 800 }}>${plan.price}</span>
+                  <span style={{ color: '#94A3B8' }}>/mo</span>
+                </div>
+                <ul style={{ listStyle: 'none', textAlign: 'left', marginBottom: 32, display: 'flex', flexDirection: 'column', gap: 12, padding: '0 16px' }}>
+                  <li style={{ display: 'flex', gap: 8, fontSize: 'var(--text-sm)', color: '#F8FAFC', fontWeight: 500 }}>
+                    ✓ {plan.summaries}{plan.id === 'unlimited' ? '' : ''} summaries/month
+                  </li>
+                  {plan.features.map((f, fi) => (
+                    <li key={fi} style={{ display: 'flex', gap: 8, fontSize: 'var(--text-sm)', color: '#94A3B8' }}>✓ {f}</li>
+                  ))}
+                </ul>
+                <button
+                  onClick={handleCTA}
+                  className={plan.popular ? 'btn btn-primary' : 'btn btn-dark'}
+                  style={{ width: '100%' }}
+                >
+                  {plan.id === 'free' ? 'Get Started' : 'Sign Up'}
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
