@@ -8,7 +8,6 @@ import Dashboard from './pages/Dashboard';
 import Summary from './pages/Summary';
 import Settings from './pages/Settings';
 import Pricing from './pages/Pricing';
-import Admin from './pages/Admin';
 import './App.css';
 
 function App() {
@@ -42,14 +41,6 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Settings />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/admin"
-              element={
-                <ProtectedRoute>
-                  <Admin />
                 </ProtectedRoute>
               }
             />
