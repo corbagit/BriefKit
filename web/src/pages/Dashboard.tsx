@@ -122,6 +122,7 @@ export default function Dashboard() {
                   lineHeight: 1.6,
                   padding: '16px',
                   fontSize: 'var(--text-base)',
+                  color: '#F8FAFC',
                 }}
                 placeholder="https://example.com/article or paste your text here..."
                 value={input}
