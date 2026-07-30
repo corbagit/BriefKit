@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { summariesApi } from '../services/api';
 import { useState, useEffect } from 'react';
 import Footer from '../components/Footer';
+import Navbar from '../components/Navbar';
 
 interface SummaryData {
   id: string;
@@ -81,6 +82,7 @@ export default function Summary() {
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--light-bg)' }}>
+      <Navbar />
       {/* Header */}
       <div style={{
         background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)',
