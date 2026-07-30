@@ -115,7 +115,7 @@ export default function Dashboard() {
             </label>
             <div style={{ display: 'flex', gap: 12, flexDirection: 'column' }}>
               <textarea
-                className="input input-dark"
+                className="brand-input brand-input-dark"
                 style={{
                   minHeight: 80,
                   resize: 'vertical',
